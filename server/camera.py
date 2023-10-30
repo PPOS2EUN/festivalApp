@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-import numpy as np
-import os
 import cv2
+import asyncio
+import json
+import websockets
 
-faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-eyeCascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+
+faceCascade = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
+eyeCascade = cv2.CascadeClassifier('./haarcascade_eye.xml')
 
 def detect(gray,frame):
     faces = faceCascade.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=5,minSize=(100,100),flags=cv2.CASCADE_SCALE_IMAGE)
@@ -19,16 +21,16 @@ def detect(gray,frame):
             cv2.rectangle(face_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
     return frame
 
-url = 'http://10.32.21.102:4747/video?640x480'
+url = 'http://10.32.21.54:4747/video?640x480'
 
 video_capture = cv2.VideoCapture(url)
-
-while(True):
+while True:
     ret, frame = video_capture.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     frame = detect(gray, frame)
+    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
     cv2.imshow('video', frame)
-   
     cv2.waitKey(1)
+
 video_capture.release()
 cv2.destroyAllWindows()

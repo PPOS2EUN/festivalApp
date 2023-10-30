@@ -12,7 +12,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/form" element={<Form/>} />
             <Route path="/welcome" element={<Welcome/>}/>
-            <Route path="/faceRecongnize" element={<FaceRecongnize/>}/>
+            <Route path="/face" element={<FaceRecongnize/>}/>
        </Routes>
     </div>
   );

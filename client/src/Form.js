@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import './Form.css';
+import { useNavigate } from "react-router-dom";
 
 const Styles = styled.div`
   padding: 20px;
@@ -63,9 +63,7 @@ const Styles = styled.div`
 `;
 
 export default function Form() {
-    const onLinkClick = (e) => {
 
-    };
     const { register, handleSubmit } = useForm();
     let today = new Date();
 
@@ -75,25 +73,28 @@ export default function Form() {
     let year = today.getFullYear();
     let month = today.getMonth() + 1;
     let date = today.getDate();
+    let navigate = useNavigate();
+    function handleClick() {
+    navigate("/welcome");
+    }
+    return (
+    <Styles>
+       <h3 style={{textAlign: 'center', fontSize: '40px'}}>Visitor Form</h3>
+       <form>
+           <label>Name</label>
+           <input name="name"/>
 
-     return (
-       <Styles>
-           <h3 style={{textAlign: 'center', fontSize: '40px'}}>Visitor Form</h3>
-           <form>
-               <label>Name</label>
-               <input name="name"/>
+           <label>Age</label>
+           <input name="name"/>
 
-               <label>Age</label>
-               <input name="name"/>
+           <label>Phone number</label>
+           <input name="pnum"/>
 
-               <label>Phone number</label>
-               <input name="pnum"/>
+           <label>Email</label>
+           <input name="email"/>
 
-               <label>Email</label>
-               <input name="email"/>
-
-               <button onClick={} type="submit" className="submitButton">Submit</button>
-           </form>
-       </Styles>
-     );
+           <button onClick={handleClick} type="submit" className="submitButton">Submit</button>
+       </form>
+    </Styles>
+    );
 }
