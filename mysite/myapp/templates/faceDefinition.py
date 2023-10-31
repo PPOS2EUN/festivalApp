@@ -15,28 +15,29 @@ import numpy as np
 video_capture = cv2.VideoCapture(0)
 
 # sample
-BE_image = face_recognition.load_image_file("./dobbies/BE.jpg")
-BE_face_encoding = face_recognition.face_encodings(BE_image)[0]
+IU_image = face_recognition.load_image_file("./dobbies/IU.jpg")
+IU_face_encoding = face_recognition.face_encodings(IU_image)[0]
 
-JH_image = face_recognition.load_image_file("./dobbies/JH.jpg")
-JH_face_encoding = face_recognition.face_encodings(JH_image)[0]
+JS_image = face_recognition.load_image_file("./dobbies/JS.jpg")
+JS_face_encoding = face_recognition.face_encodings(JS_image)[0]
 
-JW_image = face_recognition.load_image_file("./dobbies/JW.jpg")
-JW_face_encoding = face_recognition.face_encodings(JW_image)[0]
+HJ_image = face_recognition.load_image_file("./dobbies/HJ.jpg")
+HJ_face_encoding = face_recognition.face_encodings(HJ_image)[0]
 
 HK_image = face_recognition.load_image_file("./dobbies/HK.jpg")
 HK_face_encoding = face_recognition.face_encodings(HK_image)[0]
 
+# Create arrays of known face encodings and their names
 known_face_encodings = [
-    BE_face_encoding,
-    JH_face_encoding,
-    JW_face_encoding,
+    IU_face_encoding,
+    JS_face_encoding,
+    HJ_face_encoding,
     HK_face_encoding
 ]
 known_face_names = [
-    "BE",
-    "JH",
-    "JW",
+    "IU",
+    "JS",
+    "HJ",
     "HK"
 ]
 
@@ -47,16 +48,11 @@ face_names = []
 process_this_frame = True
 
 while True:
-    url = 'http://10.32.21.54:4747/video?640x480'
-
-    video_capture = cv2.VideoCapture(url)
-
     # Grab a single frame of video
     ret, frame = video_capture.read()
 
     # Only process every other frame of video to save time
     if process_this_frame:
-        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
         # Resize frame of video to 1/4 size for faster face recognition processing
         small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
@@ -72,7 +68,7 @@ while True:
         for face_encoding in face_encodings:
             # See if the face is a match for the known face(s)
             matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-            name = "Visitor"
+            name = "visitor"
 
             # # If a match was found in known_face_encodings, just use the first one.
             if True in matches:

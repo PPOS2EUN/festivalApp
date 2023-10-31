@@ -1,9 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('index/', views.index, name='index'),
-    path('welcome/', views.welcome, name='welcome'),
-    path('face/', views.faceRecognize, name='faceRecognize'),
-    path('form/', views.form, name='form'),
+    path('', views.home, name="home"),
+    # path('faceDet/', views.faceDet, name='faceDet'),
+    path('detectme', views.detectme,name='detectme'),
+    # path('detectface', views.detectface,name='detectface'),
+    path('form', views.Form, name='Form')
 ]
