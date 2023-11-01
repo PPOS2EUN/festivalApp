@@ -4,7 +4,6 @@ from django.http import StreamingHttpResponse
 import threading
 import os, sys
 # https://blog.miguelgrinberg.com/post/video-streaming-with-flask/page/8
-import face_recognition
 import cv2
 import numpy as np
 
@@ -14,7 +13,7 @@ import argparse
 from time import sleep
 
 
-droidCam_url = 'https://10.32.21.71:4343/video'
+droidCam_url = 'https://10.32.9.34:4343/video'
 
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 # todo FACE DETECTION
@@ -27,6 +26,11 @@ def home(request):
 
 def Form(request):
     return render(request, "Form.html")
+
+def Welcome(request):
+    return render(request, "Welcome.html")
+
+
 class VideoCamera(object):
     _instance = None
 
@@ -53,6 +57,7 @@ class VideoCamera(object):
         image = self.frame
         if image is None or image.size == 0:
             return None
+
         _, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
     def update(self):
@@ -91,9 +96,26 @@ def detectme(request):
         print("error...")
         pass
 
+
+known_face_names = [
+    "BE",
+    "JW",
+    "JH",
+    "HK"
+]
+
+def recognition(request):
+    if (known_face_names == True):
+        return render(request, "Welcome.html")
+    else:
+        return render(request, "Form.html")
+
+
 #============================================================================================================
 #============================================================================================================
 # todo MOVING ACTUATOR
+# 1120px ->
+
 
 # global DIR, STEP
 #

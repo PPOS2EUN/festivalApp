@@ -3,8 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="home"),
-    # path('faceDet/', views.faceDet, name='faceDet'),
     path('detectme', views.detectme,name='detectme'),
-    # path('detectface', views.detectface,name='detectface'),
-    path('form', views.Form, name='Form')
+    path('Welcome', views.Welcome, name='Welcome'),
+    path('Form', views.Form, name='Form')
 ]
